@@ -1,3 +1,6 @@
+//ERROR EN EL CARGADO DE LAS PUERTAS
+
+
 //Medidas maximas de calculo (en cm)
 const altutaMax = 400;
 const anchoMax = 70;
@@ -9,26 +12,25 @@ let materialSeleccionado = prompt(`Ingrese el material con el que letruira(con n
     2 - Ladrillo grande.
     3 - Ladrillo cemento.
     4 - Ladrillo estandard.
-    5 - Durloc.
-    `
-);
+    5 - Durloc.`);
 let alturaIngresada = prompt(`Ingrese la altura (metros): `);
 let anchoIngresado = prompt(`Ingrese el ancho (centimetros): `);
 let largoIngresado = prompt(`Ingrese el largo (metros): `);
-//falta aberturas
-//let puertasIngresadas = prompt(`Ingrese la puerta que desee.
-//    Las medidas de puertas son:
-//    1 Puerta - 0.21m x 0.9m.
-//    2 Puerta - 0.21m x 0.8m.
-//    3 Puerta - 0.21m x 0.7m.
-//`);
-//let cantidadDeVentanas = prompt(`Ingrese cantidad de ventanas: 1 , 2 o 3.`)
-//let ventanaIngresada = prompt(`Ingrese la ventana que desee.
-//    Las medidas de las ventans son:
-//	1 Ventana - 1.2m.x 1m.
-//	2 Ventana - 1.2m x 0.9m.
-//	3 Ventana - 0.6m x 0.4m.
-//`);
+let puertaIngresada = prompt(`Ingrese la puerta que desee.
+    Las medidas de puertas son:
+    1 - Puerta - 0.21m x 0.9m.
+    2 - Puerta - 0.21m x 0.8m.
+    3 - Puerta - 0.21m x 0.7m.`);
+let cantidadDeVentanas = prompt(`Ingrese cantidad de ventanas: 
+    0 ,
+    1 ,
+    2 ,
+    3 .`);
+let ventanaIngresada = prompt(`Ingrese la ventana que desee.
+    Las medidas de las ventans son:
+    1 - Ventana - 1.2m.x 1m.
+    2 - Ventana - 1.2m x 0.9m.
+    3 - Ventana - 0.6m x 0.4m.`);
 
 //traspaso de string a numeros del promp
 const transformStringToNumber = (elementoATransformar) =>{
@@ -57,7 +59,7 @@ const calcReqAlto = () =>{
     }else if(alturaIngresada<altutaMax){
         //console.log(`Altura ingresada ${alturaIngresada} metros`);console.log(`Material: ${materialSeleccionado.nombre}`);console.log(`Medidas del material seleccionado (de alto), en cm ${materialSeleccionado.alto}.`);
         let reqXAltura =div(pasoAMtrs,materialSeleccionado.alto);
-        console.log(`necesita ${Math.ceil(reqXAltura)} de unidades de ${materialSeleccionado.nombre} para ${alturaIngresada} metros de alto.`)
+        console.log(`Necesita ${Math.ceil(reqXAltura)} de unidades de ${materialSeleccionado.nombre} para ${alturaIngresada} metros de alto.`)
         return reqXAltura;
     }
 };
@@ -68,7 +70,7 @@ const calcReqAncho = () =>{
     }else if(anchoIngresado<anchoMax){
         //console.log(`ancho ingresada ${anchoIngresado} centimetros`);console.log(`Material: ${materialSeleccionado.nombre}`);console.log(`Medidas del material seleccionado (de alto), en cm ${materialSeleccionado.ancho}.`);
         let reqXAncho =div(anchoIngresado,materialSeleccionado.ancho);
-        console.log(`necesita ${Math.ceil(reqXAncho)} de unidades de ${materialSeleccionado.nombre} para ${anchoIngresado} cm de ancho.`)
+        console.log(`Necesita ${Math.ceil(reqXAncho)} de unidades de ${materialSeleccionado.nombre} para ${anchoIngresado} cm de ancho.`)
         return reqXAncho;
     }
 };
@@ -80,7 +82,7 @@ const calcReqLargo = () =>{
     }else if(pasoAMtrs<largoMax){
         //console.log(`Altura ingresada ${largoIngresado} metros`);console.log(`Material: ${materialSeleccionado.nombre}`);console.log(`Medidas del material seleccionado (de alto), en cm ${materialSeleccionado.largo}.`);
         let reqXLarg =div(pasoAMtrs,materialSeleccionado.largo);
-        console.log(`necesita ${Math.ceil(reqXLarg)} de unidades de ${materialSeleccionado.nombre} para ${largoIngresado} metros de largo.`)
+        console.log(`Necesita ${Math.ceil(reqXLarg)} de unidades de ${materialSeleccionado.nombre} para ${largoIngresado} metros de largo.`)
         return reqXLarg;
     }
 };
@@ -90,88 +92,147 @@ const reqXmtr4 = () => {
     let materialesXmetroAlto =  calcReqAlto();
     let materialesXmetroLarg = calcReqLargo();
     calcReqAncho();
-    let metros4 = largoIngresado*alturaIngresada;
+    //let metros4Puerta = puertaIngresada.alto*puertaIngresada.largo;
+    let metros4 = (largoIngresado*alturaIngresada)//-metros4Puerta;
     let reqXmetroCuadrado = materialesXmetroAlto*materialesXmetroLarg;
-    console.log(`necesita ${Math.ceil(reqXmetroCuadrado)} de unidades de ${materialSeleccionado.nombre} para ${metros4} metros cuadrados.`)
-};
+    console.log(`Necesita ${Math.ceil(reqXmetroCuadrado)} de unidades de ${materialSeleccionado.nombre} para ${metros4} metros cuadrados.`)
+}
 
-//funcion material seleccioado igualado a objeto segun caso
-//Medidas de materiales en Centimetros
+//materiales
 const materialPorPrompt = () =>{
     switch(materialSeleccionado){
-        case "1":
+        case `1`:
             materialSeleccionado=ladrilloChico={
-                nombre:"Ladrillo pequeño",
+                nombre:`Ladrillos pequeños`,
                 ancho:10,
                 largo:40,
                 alto:20
             };
-            reqXmtr4();
             break;
-        case "2":
+        case `2`:
             materialSeleccionado=ladrilloGrande={
-                nombre:"Ladrillo grande",
+                nombre:`Ladrillos grandes`,
                 ancho:35,
                 largo:40,
                 alto:25
             };
-            reqXmtr4();
             break;
-        case "3":    
+        case `3`:    
             materialSeleccionado=ladrilloCemento = {
-                nombre:"Ladrillo de cemento",
+                nombre:`Ladrillos de cemento`,
                 ancho:20,
                 largo:40,
                 alto:20
             };
-            reqXmtr4();
             break;
-        case "4":
+        case `4`:
             materialSeleccionado= ladrilloPerse = {
-                    nombre:"Ladrillo normal",
-                    ancho:20,
-                    largo:38,
-                    alto:25
+                nombre:`Ladrillos normal`,
+                ancho:20,
+                largo:38,
+                alto:25
             };
-            reqXmtr4();
             break;
-        case "5":
+        case `5`:
             materialSeleccionado=durloc={
-                nombre:"Durloc",
+                nombre:`Durloc`,
                 alto : 300,
-                ancho: 14,
+                ancho: 70, //inicializado como max cantidad de ancho, ya que no necesita masque esto.
                 largo: 170
             };
-            reqXmtr4();
             break; 
     }
+    
 };
-materialPorPrompt();
-//restar a la cuenta final, las aberturas (segun opcion del usuario) y en base a ello mostrar el calculo final y materiales necesarios
-//const finalCountMtrs = () => {
-//    if(cantidadDeVentanas<1){
-//        alert("selecciono cero (0) ventanas");
-//        materialPorPrompt();
-//    }else{
-//        switch(ventanaIngresada){
-//            case "1":
-//                ventanaIngresada= ventana1={
-//                    largo:120,
-//                    alto:100
-//                }
-//                break;
-//            case "2":
-//            ventanaIngresada= ventana2={
-//                largo:120,
-//                alto:90
+
+//puerta
+//const puertaSeleccionada = () =>{
+//    switch(puertaIngresada){
+//        case "1":
+//            puertaIngresada=puerta1={
+//                largo:0.21,
+//                alto:0.90
 //            }
-//                break;
-//            case "3":
-//                ventanaIngresada= ventana3={
-//                    largo:60,
-//                    alto:40
-//                }
-//                break;
+//            break;
+//        case "2":
+//            puertaIngresada=puerta2={
+//                largo:0.21,
+//                alto:0.80
 //            }
-//    }
-//}
+//            break;
+//        case "3":puertaIngresada=puerta3={
+//                largo:0.21,
+//                alto:0.70
+//            }   
+//            break;
+//        }
+//};
+//puertaSeleccionada();
+//console.log(puertaIngresada);
+
+//calculo descuento aberturas
+const mtrRestaAbertura = () => {
+    //calculo material x alto y largo y ancho(funcion y multiplicacion para sacar metro cuadrado y materiales de estos)
+    let materialesXmetroAlto =  calcReqAlto();
+    let materialesXmetroLarg = calcReqLargo();
+    calcReqAncho();
+    //calculo aberturas, metro cuadrado y cuanto materiales se necesitan para esto, para restar a los materiales necesarios
+    console.log("Material seleccionado :"+ materialSeleccionado.nombre);
+    let metros4Aberturas=(ventanaIngresada.alto*ventanaIngresada.largo)*cantidadDeVentanas;
+    let aberXLarg = div(ventanaIngresada.largo,materialSeleccionado.largo);
+    let aberXAlto = div(ventanaIngresada.alto,materialSeleccionado.alto);
+    //metros cuadrados puerta
+    let metros4Puerta = puertaIngresada.alto*puertaIngresada.largo;
+    //metros cuadrados de construccion , menos abertura y puerta
+    let restaMaterialesAberturas=aberXAlto*aberXLarg;
+    let metros4 = ((largoIngresado*alturaIngresada)-metros4Aberturas)//-metros4Puerta;
+    //calculo descuento puerta
+    //let puertaXalto = div(puertaIngresada.alto/materialSeleccionado.alto);
+    //let puertaXLargo= div(puertaIngresada.largo/materialSeleccionado.largo);
+    //let puertaXMaterial=puertaXLargo*puertaXalto;
+    //console.log(puertaXMaterial)
+    console.log(`${metros4} metros cuadrados de paredes descontando las aberturas`);
+    //calculo final metros cuadrados de materiales necesarios, menos materiales necesarios que se utiliza en aberturas
+    let reqXmetroCuadrado = ((materialesXmetroAlto*materialesXmetroLarg)-restaMaterialesAberturas)//-puertaXMaterial;
+    console.log(`Necesita ${Math.ceil(reqXmetroCuadrado)} de unidades de ${materialSeleccionado.nombre} para ${metros4} metros cuadrados.`)
+};
+
+//funcion resta de aberturas
+const finalCountMtrs = () => {
+    transformStringToNumber(cantidadDeVentanas);
+    if(cantidadDeVentanas<1){
+        materialPorPrompt();
+        switch(cantidadDeVentanas){
+            case `0`:
+            alert(`selecciono sin ventanas (cero ventanas).`);
+            reqXmtr4();
+            break;
+        }
+    }else if(cantidadDeVentanas>=1){
+        materialPorPrompt();
+        switch(ventanaIngresada){
+            case `1`:
+                ventanaIngresada=ventana1={
+                    largo:1.20,
+                    alto:1.00
+                };
+                mtrRestaAbertura();
+                break;
+            case `2`:
+                ventanaIngresada=ventana2={
+                    largo:1.20,  
+                    alto:0.90
+                };
+                mtrRestaAbertura();
+                break;
+            case `3`:
+                ventanaIngresada=ventana3={
+                    largo:0.60,
+                    alto:0.40
+                };
+                mtrRestaAbertura();
+                break;
+        }
+    }
+}
+finalCountMtrs();
