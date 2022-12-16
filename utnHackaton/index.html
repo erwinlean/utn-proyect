@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--cdn archives XLSX/Axios-->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/axios/1.1.3/axios.min.js"></script>
+
+    <!--Web icon logo-->
+    <link rel="icon" href="./assets/burro_logo.png">
+
+    <!--styles-->
+    <link rel="stylesheet" href="./style/normalize.css">
+    <link rel="stylesheet" href="./style/head.css">
+    <link rel="stylesheet" href="./style/index/body_index.css">
+    <link rel="stylesheet" href="./style/footer.css">
+
+    <title>EABMODEL Project Hackaton</title>
+</head>
+
+<body>
+
+    <!--General Header-->
+    <div id="header" class="header">
+        <nav>
+            <ul>
+                <li><button><a href="#header">Inicio</a></button></li>
+                <li><button><a href="./presentacion.html">Presentacion</a></button></li>
+                <li><button><a href="./stadistics.html">Estadisticas</a></button></li>
+            </ul>
+        </nav>
+    </div>    
+
+    <!--Body index HTML-->
+    <div class="general_body">
+        <div class="prenvention_section">
+            <h3 class="title"><img src="./assets/eco.png" alt=""><p>Seamos prudentes, cuidemos el medio ambiente.</p></h3>
+            <p class="sub-title">¿Sabias que el 95% de los incendios forestales son producidos por la mano del hombre? Los incendios forestales son fuegos descontrolados de rápida propagación que afectan a bosques, llanuras, pastizales, pasturas, entre otras. Te dejamos algunas recomendaciones oficiales para <strong>prevenirlos</strong>.</p>
+            <ul  class="first-list">
+                <li class="li_prentention"><img class="icon-list" src="./assets/check.png"><p>Evita fumar y arrojar fósforos, colillas o botellas rotas en el suelo ya que pueden ser un medio para generar fuego por la intensidad del sol.</p></li>
+                <li class="li_prentention"><img class="icon-list" src="./assets/check.png"><p>Si realizás una fogata, colocá piedras alrededor del fuego y, luego de apagarlo con agua o tierra, asegurate de haberlo hecho correctamente removiendo las cenizas.</p></li>
+                <li class="li_prentention"><img class="icon-list" src="./assets/check.png"><p>Evitá encender fuego en época de sequía.</p></li>
+                <li class="li_prentention"><img class="icon-list" src="./assets/check.png"><p>Si estás en una ruta y ves un incendio forestal, avisá de inmediato a los bomberos. Recordá que una columna de humo significa la posibilidad de un incendio forestal.</p></li>
+            </ul>
+            <h4 class="second-sub_title">Si vivis en una zona con riesgo de incendios forestales:</h4>
+            <div class="img-list">
+                <div class="fire-icon">
+                    <img src="./assets/fire_tree.gif" alt="">
+                </div>
+                <ul class="second-list">
+                    <li class="li_prentention"><img class="icon-list-2" src="./assets/point.png">No apiles troncos ni ramas cerca de la casa. Mantené el pasto corto y construí una línea de defensa de al menos 3 metros de ancho sin vegetación alrededor de la vivienda.</li>
+                    <li class="li_prentention"><img class="icon-list-2" src="./assets/point.png"><p>Mantené los techos, canaletas y desagües libres de hojas, ramas y pinocha, ya que en un incendio es material combustible que alimenta al fuego.</p></li>
+                    <li class="li_prentention"><img class="icon-list-2" src="./assets/point.png"><p>Si tenes pileta, mantenela con agua durante todo el año, ya que puede ser utilizada por los bomberos para controlar el avance del fuego.</p></li>
+                    <li class="li_prentention"><img class="icon-list-2" src="./assets/point.png"><p>Si contás con tubos de gas o un depósito de gas butano (Zeppelin), es muy importante que te asesores sobre las normas de seguridad apropiadas.</p></li>
+                    <li class="li_prentention"><img class="icon-list-2" src="./assets/point.png"><p>Si tenes depósitos con combustibles líquidos (nafta, gasoil), asegurate de que se encuentren en lugares libres de basura o leña y lejos de la exposición solar. Colocá cartelería informativa y a la vista.</p></li>
+                    <li class="li_prentention"><img class="icon-list-2" src="./assets/point.png"><p>Es recomendable usar rejillas matachispas en los escapes de los vehículos para circular por el monte.</p></li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="map_alert_zone">
+            <div class="map">
+                <iframe src="https://www.ventusky.com/?p=-39.4;-67.6;4&l=temperature-2m"></iframe>
+            </div>
+            <div class="alert_from_api">
+                <h2><img src="./assets/fire.png" alt="">  Zonas en alerta  <img src="./assets/fire.png" alt=""></h2>
+                <h5>Actualizacion automatica cada 30 segundos.</h5>
+                <ul class="list_alert" id="list"></ul>
+                <h6>Alertas en relacion a los mm de lluvias caidos en los ultimos 7 dias. Temperatura promedio semanal, y temperatura maxima de determinada zona.</h6>
+            </div>
+        </div>
+    </div>
+
+    <!--General Footer-->
+    <div class="footer">
+        <p>Hackaton - Estadistica</p>
+        <p>Universdad Tecnologica Nacional - Regional San Rafael</p>
+        <p>Grupo EABMODEL</p>
+    </div>
+
+    <script src="./functions/api_connect.js"></script>
+
+</body>
+</html>
