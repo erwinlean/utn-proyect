@@ -89,6 +89,11 @@ const zones = [{
 ];
 const cities_on_dom = [];
 
+function week_average_calc (array_to_sum){
+    array_to_sum = (array_to_sum.reduce(function(num_1, num_2){return num_1 + num_2}) / 7);
+    return array_to_sum;
+}
+
 // Search Danger Zones > with loop, with longitude and latitude with api, and print results on the DOM
 const find_alert_zones = (zone) => {
     for (let i = 0; i < zones.length; i++) {
@@ -103,23 +108,30 @@ const find_alert_zones = (zone) => {
         .then(async (response) =>{
             const data = await response.json()
 
-            // Print on DOM
             function show_alert_zone(info){
                 let current_weather = info.current_weather;
                 let daily = info.daily;
 
                 // Weather conditions
-                const average_temperature_week = (daily.apparent_temperature_max.reduce(function(num_1, num_2){return num_1 + num_2}) / 7);
-                const average_rain_week = (daily.rain_sum.reduce(function(num_1, num_2){return num_1 + num_2}) / 7);
+                const average_temperature_week = week_average_calc(daily.apparent_temperature_max);
+                const average_rain_week = week_average_calc(daily.rain_sum);
                 const weather_code_week = daily.weathercode.every((code_num) => {
-                    if( code_num >= 61){
+                    if( code_num > 60){
                         return code_num;
                     }
                 });
 
                 // Conditions for forest fires (Hight temperature, temperature averager of the week, day and week Rain)
-                if(current_weather.temperature > 25 && current_weather.weathercode <= 3 && average_temperature_week >= 30 && average_rain_week === 0 && weather_code_week == false){
+                if(current_weather.temperature > 25 && current_weather.weathercode <= 3 && average_temperature_week >= 30 && average_rain_week === 0 && weather_code_week === false){
                     cities_on_dom.push(city_name);
+
+                    // Weather status for print on the DOM
+                    //console.log(`Ciudad: ${city_name} ⚠️⚠️`)
+                    //console.log(`Temperatura actual: ${current_weather.temperature}`)
+                    //console.log(`Temperatura promedio de la semana: ${average_rain_week}`)
+                    //console.log(`Codigo de clima (inferior a 61 significa sin lluvia/tormenta): ${current_weather.weathercode}`)
+                    //console.log(`Codigos de clima semanal (true=codigo durante la semana superior a 61): ${weather_code_week}`)
+                    //console.log(daily.weathercode)
 
                     const pCreate = document.createElement("p");   
                     pCreate.setAttribute("class", "alert-zone");
