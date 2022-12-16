@@ -6,10 +6,6 @@ const zones = [{
         latitude: "-34,61",
         longitude: "-58,38"
     },{
-        name: "Salta",
-        latitude: "-24,79",
-        longitude: "-65,41"
-    },{
         name: "Catamarca",
         latitude: "-28,47",
         longitude: "-65,79"
@@ -66,6 +62,10 @@ const zones = [{
         latitude: "-40,81",
         longitude: "-63,00"
     },{
+        name: "Salta",
+        latitude: "-24,79",
+        longitude: "-65,41"
+    },{
         name: "San Juan",
         latitude: "-31,54",
         longitude: "-68,54"
@@ -89,10 +89,22 @@ const zones = [{
 ];
 const cities_on_dom = [];
 
+// Functions
 function week_average_calc (array_to_sum){
     array_to_sum = (array_to_sum.reduce(function(num_1, num_2){return num_1 + num_2}) / 7);
     return array_to_sum;
 }
+
+function clear_dom(array_toclear){
+    for (let i = 0; i < array_toclear.length; i++) {
+        const element_clear = document.getElementById("list-item");
+        element_clear.remove();
+    };
+
+    while(array_toclear > 0){
+        array_toclear.pop();
+    };
+};
 
 // Search Danger Zones > with loop, with longitude and latitude with api, and print results on the DOM
 const find_alert_zones = (zone) => {
@@ -124,14 +136,16 @@ const find_alert_zones = (zone) => {
                 // Conditions for forest fires (Hight temperature, temperature averager of the week, day and week Rain)
                 if(current_weather.temperature > 25 && current_weather.weathercode <= 3 && average_temperature_week >= 30 && average_rain_week === 0 && weather_code_week === false){
                     cities_on_dom.push(city_name);
+                    
 
                     // Weather status for print on the DOM
-                    //console.log(`Ciudad: ${city_name} ⚠️⚠️`)
-                    //console.log(`Temperatura actual: ${current_weather.temperature}`)
-                    //console.log(`Temperatura promedio de la semana: ${average_rain_week}`)
-                    //console.log(`Codigo de clima (inferior a 61 significa sin lluvia/tormenta): ${current_weather.weathercode}`)
-                    //console.log(`Codigos de clima semanal (true=codigo durante la semana superior a 61): ${weather_code_week}`)
-                    //console.log(daily.weathercode)
+                    console.log(`Ciudad: ${city_name} ⚠️⚠️`);
+                    console.log(`Temperatura actual: ${current_weather.temperature}`);
+                    console.log(`Temperatura maxima promedio de la semana: ${average_temperature_week}`);
+                    console.log(`Milimetros de lluvia de la semana: ${average_rain_week}`)
+                    //console.log(`Codigo de clima (inferior a 61 significa sin lluvia/tormenta): ${current_weather.weathercode}`);
+                    //console.log(`Codigos de clima semanal (true=codigo durante la semana superior a 61): ${weather_code_week}`);
+                    //console.log(daily.weathercode);
 
                     const pCreate = document.createElement("p");   
                     pCreate.setAttribute("class", "alert-zone");
@@ -148,21 +162,14 @@ const find_alert_zones = (zone) => {
     }
 };
 
-// Refresh danger zone every 30 seconds
+// Refresh DOM
 setInterval(()=> {
-        find_alert_zones(zones);
+    find_alert_zones(zones);
 }, 30000);
 
 // Clear DOM, from previous zones
 setInterval(() => {
-    for (let i = 0; i < cities_on_dom.length; i++) {
-        const element_clear = document.getElementById("list-item");
-        element_clear.remove();
-
-        while(cities_on_dom > 0){
-            cities_on_dom.pop();
-        };
-    }
+    clear_dom(cities_on_dom);
 }, 29999)
 
 // First search before refreshing the danger zones
