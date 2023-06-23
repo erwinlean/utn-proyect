@@ -28,9 +28,10 @@ a{
 }
 .header > nav > ul{
     width: 100%;
-    display: flex;
+    display: inline-flex;
     justify-content: center;
     padding: 0;
+    align-items: center;
 }
 .header > nav > ul > li > button{
     border: none;
@@ -44,8 +45,8 @@ a{
 .header > nav > ul > li > button:hover{
     border-radius: 15px;
     padding: 10px;
-    background: white;
-    color: #2D7E71;
+    /*background: white;*/
+    color: #5C80BC;
     box-shadow: 0 1.5px 3px #2D7E71;
 }
 .header > nav > ul > li > button > a{
@@ -55,7 +56,27 @@ a{
     padding: 20px;
 }
 .header > nav > ul > li > button > a:hover{
-    color: #2D7E71;
+    color: #5C80BC;
     width: 100%;
     height: 100%;
+}
+
+@media (max-width: 854px) {
+    .header{
+        position: relative;
+        height: auto;
+    }
+    .header > nav > ul{
+        display: grid;
+        justify-items: center;
+    }
+    body > div.header > nav > ul > li{
+        width: 100%;
+        text-align: justify;
+        padding-bottom: 5px;
+        text-align-last: center;
+    }
+    body > div.header > nav > ul > li > button{
+        width: 80%;
+    }
 }

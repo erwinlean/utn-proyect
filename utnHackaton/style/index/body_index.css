@@ -6,6 +6,10 @@
 .prenvention_section{
     display: block;
 }
+strong{
+    text-decoration: underline;
+    color: #5C80BC;
+}
 .prenvention_section > .title{
     text-align: center;
     color: white;
@@ -132,7 +136,7 @@
 .fire-icon{
     width: 35%;
     height: auto;
-    display: flex;
+    display: grid;
     justify-content: center;
     padding: 35px;
 }
@@ -149,4 +153,18 @@
 }
 .general_body > .prenvention_section > .img-list > .second-list > li{
     padding: 0 30px 0 0;
+}
+input{
+    border-radius: 15px;
+    border-color: 1px solid black;
+}
+input::placeholder{
+    text-align: center;
+    font-size: 8px;
+}
+@media (max-width: 854px) {
+    body > div.general_body{
+        top: 132px;
+        position: absolute;
+    }
 }

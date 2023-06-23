@@ -7,6 +7,10 @@
     color: #5C80BC;
     padding: 30px 70px 30px 70px;
 }
+strong{
+    text-decoration: underline;
+    color: #5C80BC;
+}
 .presentation > .text > h2{
     text-align: center;
 }

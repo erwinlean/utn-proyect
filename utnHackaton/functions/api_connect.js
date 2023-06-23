@@ -1,5 +1,10 @@
 "use strict";
 
+let timeForm =  document.querySelector("#form-time");
+let timeValue = document.querySelector("#form-time > input[type=text]");
+let update_time = 30000;
+let refreshInterval;
+
 // Location/Zones
 const zones = [{
         name: "Buenos AIres",
@@ -114,11 +119,12 @@ const find_alert_zones = (zone) => {
         let latitude = parseFloat(datos_from_array.latitude);
         let longitude = parseFloat(datos_from_array.longitude);
 
-        const url = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weathercode,apparent_temperature_max,rain_sum&current_weather=true&timezone=auto`
+        const url_fire_alert = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weathercode,apparent_temperature_max,rain_sum&current_weather=true&timezone=auto`
 
-        fetch(url)
+        // Danger for fire
+        fetch(url_fire_alert)
         .then(async (response) =>{
-            const data = await response.json()
+            const data_fire = await response.json()
 
             function show_alert_zone(info){
                 let current_weather = info.current_weather;
@@ -136,41 +142,78 @@ const find_alert_zones = (zone) => {
                 // Conditions for forest fires (Hight temperature, temperature averager of the week, day and week Rain)
                 if(current_weather.temperature > 25 && current_weather.weathercode <= 3 && average_temperature_week >= 30 && average_rain_week === 0 && weather_code_week === false){
                     cities_on_dom.push(city_name);
-                    
-
-                    // Weather status for print on the DOM
-                    console.log(`Ciudad: ${city_name} ⚠️⚠️`);
-                    console.log(`Temperatura actual: ${current_weather.temperature}`);
-                    console.log(`Temperatura maxima promedio de la semana: ${average_temperature_week}`);
-                    console.log(`Milimetros de lluvia de la semana: ${average_rain_week}`)
-                    //console.log(`Codigo de clima (inferior a 61 significa sin lluvia/tormenta): ${current_weather.weathercode}`);
-                    //console.log(`Codigos de clima semanal (true=codigo durante la semana superior a 61): ${weather_code_week}`);
-                    //console.log(daily.weathercode);
 
                     const pCreate = document.createElement("p");   
                     pCreate.setAttribute("class", "alert-zone");
                     pCreate.setAttribute("id", "list-item");
                     pCreate.innerText = `⚠️🔥⚠️ ${city_name}`;
                     document.getElementById('list').appendChild(pCreate);
-                }
+                };
             };
 
-            show_alert_zone(data)
+            show_alert_zone(data_fire)
         }).catch((response_error) =>{
             console.log(response_error);
         });
-    }
+
+        // Rains precipitation alert
+        const url_rains_alert = `https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&hourly=precipitation_probability,precipitation,rain,weathercode&daily=precipitation_sum,rain_sum&forecast_days=7&timezone=auto`
+
+        fetch(url_rains_alert)
+        .then(async (response) =>{
+            const data_rains = await response.json()
+            console.log(data_rains);
+        
+            function show_alert_zone(info){
+                let current_weather = info.current_weather;
+                let daily = info.daily;
+            
+                // Conditions for much mm of rain by hour and day
+                cities_on_dom.push(city_name);
+
+                const pCreate = document.createElement("p");   
+                pCreate.setAttribute("class", "alert-zone");
+                pCreate.setAttribute("id", "list-item");
+                pCreate.innerText = `⚠️⛈️⚠️ ${city_name}`;
+                document.getElementById('list').appendChild(pCreate);
+            };
+
+            show_alert_zone(data_rains)
+        }).catch((response_error) =>{
+            console.log(response_error);
+        });
+    };
 };
 
 // Refresh DOM
-setInterval(()=> {
+function refreshDOM() {
     find_alert_zones(zones);
-}, 30000);
-
+};
 // Clear DOM, from previous zones
-setInterval(() => {
+function clearDOM() {
     clear_dom(cities_on_dom);
-}, 29999)
+};
+function startInterval() {
+    refreshInterval = setInterval(refreshDOM, update_time);
+    setInterval(clearDOM, update_time - 1);
+};
+
+// Change update time
+function changeTime(event) {
+    event.preventDefault();
+    
+    let newTime = timeValue.value * 1000;
+
+    if (/^\d+$/.test(timeValue.value)) {
+        update_time = newTime;
+        clearInterval(refreshInterval);
+        startInterval();
+    } else {
+        alert("Ingrese un valor numérico para cambiar el tiempo de actualización.");
+    };
+};
 
 // First search before refreshing the danger zones
 find_alert_zones(zones);
+timeForm.addEventListener("change", changeTime);
+startInterval();
