@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!--Web icon logo-->
+    <link rel="icon" href="./assets/burro_logo.png">
+
+    <!--Styles-->
+    <link rel="stylesheet" href="./style/normalize.css">
+    <link rel="stylesheet" href="./style/head.css">
+    <link rel="stylesheet" href="./style/stadistics/Estadistica.css">
+    <link rel="stylesheet" href="./style/footer.css">
+
+    <!--Title-->
+    <title>Estadisticas</title>
+</head>
+<body>
+
+    <!--General Header-->
+    <div id="header" class="header">
+        <nav>
+            <ul>
+                <li><button><a href="./index.html">Inicio</a></button></li>
+                <li><button><a href="./presentacion.html">Presentacion</a></button></li>
+                <li><button><a href="#header">Estadisticas</a></button></li>
+            </ul>
+        </nav>
+    </div>    
+    
+    <!--Body stadistics HTML-->
+    <div class="body_grahics">
+        <div class="img_graphics">
+            <h4>Aumento de incendios por provincias</h4>
+            <div class="img">
+                <img src="./assets/Graphic_R.jpeg" alt="Grafico por R" title="Grafico por R">
+            </div>
+        </div>
+
+        <div class="codes_graphics">
+            <h4>Codigo de grafico via R normalizado via Python</h4>
+            <div class="r_code">
+                <p>library(ggplot2)</p>
+                <p>library(dplyr)</p>
+                <p>datos = read.csv("Ruta")</p>
+                <p>#Provincias  Incendios desconocidos</p>
+                <p>ggplot(data = datos,</p>
+                <p>&nbsp &nbsp  &nbsp &nbsp &nbsp &nbspmapping = aes(x = incendio_desconocida_numero,</p>
+                <p>&nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp&nbsp &nbsp  &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbspy = incendio_provincia)) +</p>
+                <p>&nbsp &nbsp  &nbsp &nbsp &nbsp &nbspgeom_point() + labs(title = 'Pronvicias-Incendio')</p>
+            </div>
+        </div>
+
+        <h5>Descarga codigos relacionados Graficos</h5>
+        <div class="download">
+            <button><a href="./assets/Incendios.R" target="_blank">Codigo R</a></button>
+            <button><a href="./assets/Estadistica.rar">Normalizador Python</a></button>
+        </div>
+    </div>
+
+    <!--General Footer-->
+    <div class="footer">
+        <p>Hackaton - Estadistica | Organizacion Contable </p>
+        <p>Universdad Tecnologica Nacional - Regional San Rafael</p>
+        <p><a href="https://github.com/CodeSystem2022/E.A.B.M.O.D.E.L_tercer-semestre">Grupo EABMODEL</a></p>
+    </div>
+</body>
+</html>
